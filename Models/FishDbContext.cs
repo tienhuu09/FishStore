@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FishStore.Models;
 
-namespace FishStore.Data
+namespace FishStore.Models
 {
     public class FishDbContext : DbContext
     {

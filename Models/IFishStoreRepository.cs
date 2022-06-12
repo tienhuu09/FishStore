@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace FishStore.Models
 {
-    public class IFishStoreRepository
+    public interface IFishStoreRepository
     {
+        IQueryable<Fish> Fishs{ get; }
     }
 }

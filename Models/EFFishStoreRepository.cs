@@ -5,7 +5,14 @@ using System.Threading.Tasks;
 
 namespace FishStore.Models
 {
-    public class EFFishStoreRepository
+    public class EFFishStoreRepository : IFishStoreRepository
     {
+        private FishDbContext context;
+        public EFFishStoreRepository(FishDbContext ctx)
+        {
+            context = ctx;
+        }
+        public IQueryable<Fish> Fishs => context.Fishs;
     }
 }
+

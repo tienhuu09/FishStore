@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using FishStore.Data;
+using FishStore.Models;
 
 namespace FishStore
 {
@@ -26,9 +26,14 @@ namespace FishStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
             services.AddDbContext<FishDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("FishDbContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("FishDbContext")
+            ));
+            services.AddScoped<IFishStoreRepository,EFFishStoreRepository>();
+            services.AddRazorPages();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,17 +51,28 @@ namespace FishStore
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
-
+            // old URL: http://localhost:44333/?Page=2
+            // new URL: https://localhost:44333/Fishs/2
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute("default", "{controller}/{action}",
+                //new { controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("genpage","{genre}/{Page:int}",
+                new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("page", "{Page:int}",
+                new { Controller = "Home", action = "Index", Page = 1 });
+                endpoints.MapControllerRoute("genre", "{genre}",
+                new { Controller = "Home", action = "Index", Page = 1 });
+                endpoints.MapControllerRoute("pagination","Fishs/{Page}",
+                new { Controller = "Home", action = "Index", Page = 1 });
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+
             });
+
         }
     }
 }
