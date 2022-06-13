@@ -1,8 +1,8 @@
 ﻿@page "/admin/orders"
 @inherits OwningComponentBase<IOrderRepository>
-<OrderTable TableTitle="Unshipped Orders"
+<OrderTable TableTitle="Đơn Hàng Đã Vận Chuyển"
             Orders="UnshippedOrders" ButtonLabel="Ship" OrderSelected="ShipOrder" />
-<OrderTable TableTitle="Shipped Orders"
+<OrderTable TableTitle="Đơn Hàng Chưa Được Vận Chuyển"
             Orders="ShippedOrders" ButtonLabel="Reset" OrderSelected="ResetOrder" />
 <button class="btn btn-info" @onclick="@(e => UpdateData())">Làm mới dữ liệu</button>
 @code {

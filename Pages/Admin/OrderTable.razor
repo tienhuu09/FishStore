@@ -10,8 +10,8 @@
                 <tr>
                     <td>@o.Name</td>
                     @*<td>@o.Zip</td>*@
-                    <th>Fish</th>
-                    <th>Quantity</th>
+                    <th>Cá</th>
+                    <th>Số Lượng</th>
                     <td>
                         <button class="btn btn-sm btn-danger"
                                 @onclick="@(e =>OrderSelected.InvokeAsync(o.OrderID))">
@@ -32,7 +32,7 @@
         }
         else
         {
-            <tr><td colspan="5" class="text-center">No Orders</td></tr>
+            <tr><td colspan="5" class="text-center">Không có đơn đặt hàng</td></tr>
         }
     </tbody>
 </table>
