@@ -14,17 +14,18 @@
                         <small>@Model.Price.ToString("c")</small>
                     </span>
                 </h4>
+                <h5 class="card-title">
+                    <span class="badge badge-pill badge-dark">
+                        <small class="font-italic">@Model.Gender</small>
+                    </span>
+                </h5>
                 <form id="@Model.Id" asp-page="/MyCart" method="post">
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" name="returnUrl"
                            value="@ViewContext.HttpContext.Request.PathAndQuery()" />
                     <div class="card-text p-1">
                         <h6 class="card-subtitle mb-2 text-muted">@Model.Genre</h6>
-                        <h5>
-                            <span class="badge badge-pill badge-dark">
-                                <small class="font-italic">@Model.Gender</small>
-                            </span>
-                        </h5>
+
                         <button type="submit"
                                 class="btn btn-warning btn-sm pull-right">
                             Thêm vào giỏ hàng

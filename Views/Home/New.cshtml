@@ -50,10 +50,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="ProfileImage" class="control-label"></label>
+                            <label asp-for="ProfileImage" class="control-label">Ảnh</label>
                             <div class="custom-file">
                                 <input asp-for="ProfileImage" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <label class="custom-file-label" for="customFile">Chọn file</label>
                             </div>
                             <span asp-validation-for="ProfileImage" class="text-danger"></span>
                         </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="submit" class="btn btn-sm btn-primary rounded-0 text-uppercase" />
-                    <a asp-action="Index" class="btn btn-sm btn-primary rounded-0 text-uppercase"><i class="fas fa-fast-backward"></i>Quay Lại</a>
+                    <a asp-action="Index" class="btn btn-sm btn-primary rounded-0 text-uppercase"><i class="fas fa-fast-backward"></i></a>
                 </div>
             </form>
         </div>

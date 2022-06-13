@@ -1,0 +1,34 @@
+﻿@model Fish
+
+<div class="card-wrapper">
+<div class="" style="width: 18rem;">
+    <div class="">
+        <img style="width:100%;" src="~/images/@Model.ProfilePicture"
+             class=""
+             asp-append-version="true" />
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <span class=" badge-pill badge-primary">
+            <small>@Model.Price.ToString("c")</small>
+        </span>
+        <form id="@Model.Id" asp-page="/MyCart" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="returnUrl"
+                   value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <div class="card-text p-1">
+                <h6 class="card-subtitle mb-2 text-muted">@Model.Genre</h6>
+                <h5>
+                    <span class="badge badge-pill badge-dark">
+                        <small class="font-italic">@Model.Gender</small>
+                    </span>
+                </h5>
+                <button type="submit"
+                        class="btn btn-warning btn-sm pull-right">
+                    Thêm vào giỏ hàng
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
