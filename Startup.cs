@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FishStore.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace FishStore
 {
@@ -30,7 +31,11 @@ namespace FishStore
                     options.UseSqlServer(Configuration.GetConnectionString("FishDbContext")
             ));
             services.AddScoped<IFishStoreRepository,EFFishStoreRepository>();
+            services.AddScoped<MyCart>(sp => MySessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IOrderRepository, EFOrderRepository>();
             services.AddRazorPages();
+            services.AddServerSideBlazor();
             services.AddDistributedMemoryCache();
             services.AddSession();
 
@@ -70,7 +75,8 @@ namespace FishStore
                 new { Controller = "Home", action = "Index", Page = 1 });
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
-
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/admin/{*catchall}","/Admin/Index");
             });
 
         }

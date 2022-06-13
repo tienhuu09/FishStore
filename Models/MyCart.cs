@@ -7,7 +7,7 @@ namespace FishStore.Models
     public class MyCart
     {
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
-        public void AddItem(Fish fish, int quantity)
+        public virtual void AddItem(Fish fish, int quantity)
         {
             CartLine line = Lines
             .Where(b => b.Fish.Id == fish.Id)
@@ -25,11 +25,11 @@ namespace FishStore.Models
                 line.Quantity += quantity;
             }
         }
-        public void RemoveLine(Fish fish) =>
+        public virtual void RemoveLine(Fish fish) =>
         Lines.RemoveAll(l => l.Fish.Id == fish.Id);
         public decimal ComputeTotalValue() =>
         Lines.Sum(e => e.Fish.Price * e.Quantity);
-        public void Clear() => Lines.Clear();
+        public virtual void Clear() => Lines.Clear();
     }
     public class CartLine
     {

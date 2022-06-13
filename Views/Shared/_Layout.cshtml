@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>FishStore</title>
+    <title>Fish Store</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -14,13 +15,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h4 class="mr-auto text-white">Fish Store</h4>
+                <vc:cart-summary />
+
             </nav>
             <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-dark p-2">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Data">New</a>
                     <a class="nav-link text-dark" asp-area="" asp-controller="Fish" asp-action="Index">Fish</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="mycart" asp-action="">MyCart</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="">Admin</a>
 
                 </div>
             </div>

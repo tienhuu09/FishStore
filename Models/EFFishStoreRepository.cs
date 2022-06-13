@@ -13,6 +13,21 @@ namespace FishStore.Models
             context = ctx;
         }
         public IQueryable<Fish> Fishs => context.Fishs;
+        public void CreateFish(Fish b)
+        {
+            context.Add(b);
+            context.SaveChanges();
+        }
+        public void DeleteFish(Fish b)
+        {
+            context.Remove(b);
+            context.SaveChanges();
+        }
+        public void SaveFish(Fish b)
+        {
+            context.SaveChanges();
+        }
     }
+
 }
 

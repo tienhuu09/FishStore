@@ -1,0 +1,68 @@
+﻿@page "/admin/fishs"
+@page "/admin"
+@inherits OwningComponentBase<IFishStoreRepository>
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tên</th>
+            <th>Giống Cá</th>
+            <th>Giá</th>
+            <td />
+        </tr>
+    </thead>
+    <tbody>
+        @if (FishData?.Count() > 0)
+        {
+            @foreach (Fish b in FishData)
+            {
+                <tr>
+                    <td>@b.Id</td>
+                    <td>@b.Name</td>
+                    <td>@b.Genre</td>
+                    <td>@b.Price.ToString("c")</td>
+                    <td>
+                        <NavLink class="btn btn-info btn-sm"
+                                 href="@GetDetailsUrl(b.Id)">
+                            Chi Tiết
+                        </NavLink>
+                        <NavLink class="btn btn-warning btn-sm"
+                                 href="@GetEditUrl(b.Id)">
+                            Sửa
+                        </NavLink>
+                        <button class="btn btn-danger btn-sm"
+                                @onclick="@(e => DeleteFish(b))">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Fishs</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<NavLink class="btn btn-primary" href="/admin/fishs/create">Create</NavLink>
+@code {
+    public IFishStoreRepository Repository => Service;
+    public IEnumerable<Fish> FishData { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+    public async Task UpdateData()
+    {
+        FishData = await Repository.Fishs.ToListAsync();
+    }
+    public async Task DeleteFish(Fish b)
+    {
+        Repository.DeleteFish(b);
+        await UpdateData();
+    }
+    public string GetDetailsUrl(long id) => $"/admin/fishs/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/fishs/edit/{id}";
+}

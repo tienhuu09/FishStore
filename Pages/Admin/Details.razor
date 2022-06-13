@@ -1,0 +1,25 @@
+﻿@page "/admin/fishs/details/{id:long}"
+<h3 class="bg-info text-white text-center p-1">Chi Tiết</h3>
+<table class="table table-sm table-bordered table-striped">
+    <tbody>
+        <tr><th>ID</th><td>@Fish.Id</td></tr>
+        <tr><th>Tên</th><td>@Fish.Name</td></tr>
+        <tr><th>Giới Tính</th><td>@Fish.Gender</td></tr>
+        <tr><th>Giống Cá</th><td>@Fish.Genre</td></tr>
+        <tr><th>Giá Tiền</th><td>@Fish.Price.ToString("C")</td></tr>
+    </tbody>
+</table>
+<NavLink class="btn btn-warning" href="@EditUrl">Sửa</NavLink>
+<NavLink class="btn btn-secondary" href="/admin/fishs">Quay Lại</NavLink>
+@code {
+    [Inject]
+    public IFishStoreRepository Repository { get; set; }
+    [Parameter]
+    public long Id { get; set; }
+    public Fish Fish{ get; set; }
+    protected override void OnParametersSet()
+    {
+        Fish = Repository.Fishs.FirstOrDefault(b => b.Id == Id);
+    }
+    public string EditUrl => $"/admin/fishs/edit/{Fish.Id}";
+}

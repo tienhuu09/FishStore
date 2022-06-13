@@ -4,14 +4,16 @@ using FishStore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FishStore.Migrations
 {
     [DbContext(typeof(FishDbContext))]
-    partial class FishDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220612105542_Orders")]
+    partial class Orders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,9 +97,6 @@ namespace FishStore.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Shipped")
-                        .HasColumnType("bit");
 
                     b.Property<string>("TenTinh")
                         .IsRequired()

@@ -1,0 +1,72 @@
+﻿@page "/admin/fishs/edit/{id:long}"
+@page "/admin/fishs/create"
+@inherits OwningComponentBase<IFishStoreRepository>
+<style>
+    div.validation-message {
+        color: rgb(220, 53, 69);
+        font-weight: 500
+    }
+</style>
+<h3 class="bg-@ThemeColor text-white text-center p-1">@TitleText a Fish</h3>
+<EditForm Model="Fish" OnValidSubmit="SaveFish">
+    <DataAnnotationsValidator />
+    @if (Fish.Id != 0)
+    {
+        <div class="form-group">
+            <label>ID</label>
+            <input class="form-control" disabled value="@Fish.Id" />
+        </div>
+    }
+    <div class="form-group">
+        <label>Tên</label>
+        <ValidationMessage For="@(() => Fish.Name)" />
+        <InputText class="form-control" @bind-Value="Fish.Name" />
+    </div>
+    <div class="form-group">
+        <label>Giới Tính</label>
+        <ValidationMessage For="@(() => Fish.Gender)" />
+        <InputText class="form-control" @bind-Value="Fish.Gender" />
+    </div>
+    <div class="form-group">
+        <label>Giống Cá</label>
+        <ValidationMessage For="@(() => Fish.Genre)" />
+        <InputText class="form-control" @bind-Value="Fish.Genre" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <ValidationMessage For="@(() => Fish.Price)" />
+        <InputNumber class="form-control" @bind-Value="Fish.Price" />
+    </div>
+    <button type="submit" class="btn btn-@ThemeColor">Lưu</button>
+    <NavLink class="btn btn-secondary"
+             href="/admin">Hủy Bỏ</NavLink>
+</EditForm>
+@code {
+    public IFishStoreRepository Repository => Service;
+    [Inject]
+    public NavigationManager NavManager { get; set; }
+    [Parameter]
+    public long Id { get; set; } = 0;
+    public Fish Fish{ get; set; } = new Fish();
+    protected override void OnParametersSet()
+    {
+        if (Id != 0)
+        {
+            Fish = Repository.Fishs.FirstOrDefault(b => b.Id == Id);
+        }
+    }
+    public void SaveFish()
+    {
+        if (Id == 0)
+        {
+            Repository.CreateFish(Fish);
+        }
+        else
+        {
+            Repository.SaveFish(Fish);
+        }
+        NavManager.NavigateTo("/admin/fishs");
+    }
+    public string ThemeColor => Id == 0 ? "primary" : "warning";
+    public string TitleText => Id == 0 ? "Create" : "Edit";
+}

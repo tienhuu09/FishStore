@@ -16,5 +16,6 @@ namespace FishStore.Models
 
         public DbSet<Fish> Fishs{ get; set; }
         public DbSet<FishStore.Models.Fish> Fish { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
